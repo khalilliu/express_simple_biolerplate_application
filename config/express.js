@@ -13,6 +13,11 @@ var bodyParser = require('body-parser');
 var meethodOverride = require('method-override');
 var csrf = require('csurf');
 
+//new module
+const cors = require('cors');
+const upload = require('multer')();
+
+
 var mongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var winston = require('winston');

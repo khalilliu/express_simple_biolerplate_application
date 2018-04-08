@@ -5,7 +5,7 @@
 
 var mongoose = require('mongoose');
 var LocalStrategy = require('passport-local').Strategy;
-var User = mongoose.model("user");
+var User = mongoose.model("User");
 
 /**
 * Expose
@@ -17,7 +17,8 @@ module.exports = new LocalStrategy({
 	},
 	function(email, password, done){
 		var options = {
-			criteria: { email : email}
+			criteria: { email : email},
+			select: 'name username email hashed_password salt'
 		};
 		User.load(options, function(err, user) {
 			if(err)return done(err);

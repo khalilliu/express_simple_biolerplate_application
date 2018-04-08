@@ -2,10 +2,10 @@ doctype html
 html(lang="en")
   include ../includes/head.jade
   body
+    include ../includes/header.jade
     .container
-      include ../includes/header.jade
       .page-header
-        block page-header
+        block main
       .messages
         include ../includes/messages.jade
       .content

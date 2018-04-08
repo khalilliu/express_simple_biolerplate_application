@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-  db: 'mongodb://localhost/your_project_test',
+  db: 'mongodb://localhost/node_mongo_demo',
   facebook: {
     clientID: 'APP_ID',
     clientSecret: 'SECRET',

@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-  db: 'mongodb://localhost/your_project_development',
+  db: 'mongodb://localhost/node_mongo_demo',
   facebook: {
     clientID: process.env.FACEBOOK_CLIENTID,
     clientSecret: process.env.FACEBOOK_SECRET,

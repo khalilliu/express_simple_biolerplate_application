@@ -32,7 +32,7 @@ const connection = connect();
 
 //Bootstrap models
  fs.readdirSync(models)
- 	.filter(file => ~file.indexOf('.js'))
+ 	.filter(file => ~file.search(/^[^\.].*\.js$/))
  	.forEach(file => require(join(models, file)));
 
 //Bootstrap routes
@@ -42,7 +42,8 @@ require('./config/routes')(app, passport);
 
 //app.listen(3000,()=>{console.log('das')})
 
- 
+mongoose.promise = global.promise; 
+
 connection
 	.on('error', console.log)
 	.on('disconnected', connect)

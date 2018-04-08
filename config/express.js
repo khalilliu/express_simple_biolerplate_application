@@ -38,6 +38,12 @@ var env = process.env.NODE_ENV || 'development';
  		threshold: 512
  	}));
 
+ 	app.use(cors({
+ 		origin: ['http://localhost:3000', 'https://reboil-demo.herokuapp.com'],
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    credentials: true
+ 	}));
+
  	//static files middleware
  	app.use(express.static(config.root + '/public'));
 
@@ -68,15 +74,14 @@ var env = process.env.NODE_ENV || 'development';
  		next();
  	})
 
+	app.use(bodyParser.json()); 	
  	app.use(bodyParser.urlencoded({extended: true}));
-
- 	app.use(bodyParser.json());
-
+ 	app.use(upload.single('image'));
  	app.use(meethodOverride(function(req,res){
  		if(req.body && typeof req.body === 'object' && '_method' in req.body){
  			var method = req.body._method;
  			delete req.body._method;
- 			return meethod;
+ 			return method;
  		}
  	}))
 
@@ -84,8 +89,8 @@ var env = process.env.NODE_ENV || 'development';
  	app.use(cookieParser({secret: 'secret'}));
  	app.use(session({
  		secret: pkg.name,
- 		resave: true,
- 		proxy: true,
+ 		resave: false,
+ 		//proxy: true,
  		saveUninitialized: true,
  		store: new mongoStore({
  			url: config.db,
@@ -108,6 +113,10 @@ var env = process.env.NODE_ENV || 'development';
  			res.locals.csrf_token = req.csrfToken();
  			next()
  		})
+ 	}
+
+ 	if(env === 'development'){
+ 		app.locals.pretty = true;
  	}
 
  }

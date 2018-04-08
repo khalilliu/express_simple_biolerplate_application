@@ -7,7 +7,7 @@
 const mongoose = require('mongoose');
 const GithubStrategy = require('passport-github').Strategy;
 const config = require('../');
-const User = mongoose.model('user');
+const User = mongoose.model('User');
 
 /**
 * Expose

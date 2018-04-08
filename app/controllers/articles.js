@@ -11,13 +11,14 @@ const assign = Object.assign;
 //respond(res, tpl, obj, status)
 //respondOrRedirect({req,res},url,obj,flash)
 
-exports.load = async( function* (req,res,next){
+exports.load = async( function* (req,res,next,id){
 	try{
     req.article = yield Article.load(id);
     if(!req.article)return next(new Error('Article not found'))
 	}catch(e){
 		return next(e)
 	}
+	next();
 })
 
 
@@ -53,7 +54,8 @@ exports.new = function(req,res){
 //upload an image
 
 exports.create = async(function* (req,res){
-	const article = new Article(req.body, 'title body tags');
+	console.log(req.body);
+	const article = new Article(only(req.body, 'title body tags'));
 	article.user = req.user;
 	try{
 		yield article.uploadAndSave(req.file);
@@ -95,10 +97,11 @@ exports.update = async(function* (req,res){
 	}
 });
 
-exports.show = function(req,ers){
+exports.show = function(req,res){
+	console.log(req.article);
 	respond(res, 'articles/show',{
 		title: req.article.title,
-		body: req.article
+		article: req.article
 	})
 }
 

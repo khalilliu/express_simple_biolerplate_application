@@ -21,14 +21,14 @@ var ArticleSchema = new Schema({
 	comments: [{
 		body: { type: String, default: '', trim: true},
 		user: { type: Schema.ObjectId, ref: 'User' },
-		createAt: { type: Date, default: Date.now }
+		createdAt: { type: Date, default: Date.now }
 	}],
 	tags: {type: [], get: getTags, set:setTags},
 	image: {
 		cdnUri: String,
 		files: []
 	},
-	createAt: { type: Date, default: Date.now }
+	createdAt: { type: Date, default: Date.now }
 })
 
 //Validation
@@ -95,7 +95,7 @@ ArticleSchema.static({
 	load: function(_id){
 		return this.findOne({_id})
 			.populate('user','name email username')
-			.populate('comment.user')
+			.populate('comments.user')
 			.exec();
 	},
 
@@ -106,7 +106,7 @@ ArticleSchema.static({
 		return this.find(criteria)
 			.populate('user', 'name username')
 			.sort({ createAt: -1 })
-			.limit({limit})
+			.limit(limit)
 			.skip(limit*page)
 			.exec();
 	}

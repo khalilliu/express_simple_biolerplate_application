@@ -29,21 +29,33 @@ module.exports = function (app, passport) {
   //app.get('/', home.index);
   const pauth = passport.authenticate.bind(passport);
 
+  //params
+  app.param('userId', users.load);
+
+  //get methods
   app.get('/login', users.login);
   app.get('/signup',users.signup);
+  app.get('/logout',users.logout);
+  app.get('/users/:userId',users.show);
 
+  //post methods
+  app.post('/users',users.create);
   app.post('/users/session',
     pauth('local', {
       failureRedirect: '/login',
       failureFlash: 'Invalid email or password.'
     }), users.session );
 
-  app.post('/users',users.create);
+  
+  app.param('id',articles.load);
 
-
-  //home route
-  app.get('/',home.index);
-
+  //article route
+  app.get('/',articles.index);
+  app.get('/articles/new',articles.new);
+  app.get('/articles/:id',articles.show);
+  
+  //post article
+  app.post('/articles',articles.create);
   /**
    * Error handling
    */

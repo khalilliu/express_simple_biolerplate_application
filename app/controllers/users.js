@@ -4,11 +4,12 @@ const {wrap: async} = require('co');
 const {respond} = require('../utils');
 const User = mongoose.model('User');
 
-exports.load = async(function* (req,res,next){
+exports.load = async(function* (req,res,next,_id){
 	const criteria = { _id };
 	try {
 		req.profile = yield User.load({criteria});
 		if(!req.profile)return next(new Error('User not found'));
+		return next();
 	} catch(err) {
 		next(err);
 	}
@@ -22,7 +23,7 @@ exports.create = async(function* (req,res){
 	user.provider = 'local';
 	try{
 		yield user.save();
-		req.login(user, err => {
+		req.logIn(user, err => {
 			if(err)req.flash('info','Sorry! We are not able to log you in!');
 			return res.redirect('/');
 		})
@@ -39,7 +40,7 @@ exports.create = async(function* (req,res){
 
 exports.show = function(req,res){
 	const user = req.profile;
-	respond(res,'user/show',{
+	respond(res,'users/show',{
 		title: user.name,
 		user:user
 	})

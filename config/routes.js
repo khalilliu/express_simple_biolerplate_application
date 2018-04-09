@@ -8,6 +8,8 @@ const home = require('../app/controllers/home');
 
 const articles = require('../app/controllers/articles');
 const users = require('../app/controllers/users');
+const tags = require('../app/controllers/tags');
+
 
 const auth = require('./middlewares/authorization');
 
@@ -53,12 +55,15 @@ module.exports = function (app, passport) {
   app.get('/',articles.index);
   app.get('/articles/new',articles.new);
   app.get('/articles/:id',articles.show);
-  app.get('/articles/:id/edit',articles.edit);
+  app.get('/articles/:id/edit', articleAuth, articles.edit);
   app.get('/articles', articles.index);
   //post article
   app.post('/articles', articles.create);
   app.put('/articles/:id', articleAuth, articles.update);
   app.delete('/articles/:id', articleAuth, articles.destroy);
+
+  //tags route
+  app.get('/tags/:tag',tags.index);
   /**
    * Error handling
    */

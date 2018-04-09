@@ -1,1 +1,104 @@
 
+html,
+body{
+  height: 100%;
+}
+
+#wrap{
+  min-height: 100%;
+  height: auto;
+  margin:0 auto -50px;
+  padding:0 0 60px;
+}
+
+.footer{
+  height: 60px;
+  margin-top:-60px;
+  width: 100%;
+  background: #f6f6f6;
+}
+
+#container{
+  min-height: 100%;
+  padding:0px 70px 60px;
+}
+
+.footer > .container{
+  text-align: center;
+  height: 100%; 
+  line-height: 60px;
+
+}
+
+body{
+  padding-top: 60px;
+  position: relative;
+}
+
+.article, .comment{
+  padding: 15px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.form-signin{
+  max-width: 330px;
+  padding: 15px;
+  margin:0 auto;
+}
+
+.error,
+a.error,
+a.error:hover,
+a.error:focus,
+button.error,
+button.error:hover,
+button.error:focus {
+  color: #D9534F;
+}
+
+
+.form-actions {
+  background: #fff;
+  border: 0;
+}
+
+#spacer {
+  display: inline-block;
+}
+
+.muted {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.alert {
+  margin-top: 10px;
+}
+
+.navbar-brand {
+  font-size: 14px;
+  color: #000 !important;
+}
+
+.navbar-right > li > a {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+
+.form-signin input#email {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input#password {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form-signin input[type="text"] {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

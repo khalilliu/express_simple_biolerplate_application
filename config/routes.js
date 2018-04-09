@@ -53,7 +53,7 @@ module.exports = function (app, passport) {
 
   //article route
   app.get('/',articles.index);
-  app.get('/articles/new',articles.new);
+  app.get('/articles/new', auth.requiresLogin, articles.new);
   app.get('/articles/:id',articles.show);
   app.get('/articles/:id/edit', articleAuth, articles.edit);
   app.get('/articles', articles.index);

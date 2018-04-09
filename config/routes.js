@@ -53,9 +53,12 @@ module.exports = function (app, passport) {
   app.get('/',articles.index);
   app.get('/articles/new',articles.new);
   app.get('/articles/:id',articles.show);
-  
+  app.get('/articles/:id/edit',articles.edit);
+  app.get('/articles', articles.index);
   //post article
-  app.post('/articles',articles.create);
+  app.post('/articles', articles.create);
+  app.put('/articles/:id', articleAuth, articles.update);
+  app.delete('/articles/:id', articleAuth, articles.destroy);
   /**
    * Error handling
    */

@@ -25,7 +25,7 @@ exports.load = async( function* (req,res,next,id){
 exports.index  = async(function* (req, res){
 	const page = (req.query.page > 0 ? req.query.page : 1) - 1;
 	const _id = req.query.item;
-	const limit = 30;
+	const limit = 8;
 	const options = {
 		limit: limit,
 		page: page
@@ -84,10 +84,11 @@ exports.edit = async(function* (req,res){
 //update article
 exports.update = async(function* (req,res){
 	const article = req.article;
+	
 	assign(article, only(req.body, 'title body tags'));
 	try{
 		yield article.uploadAndSave(req.file);
-		respondOrRedirect({res},`/articles/${article._id}`,article);
+		respondOrRedirect({req,res},`/articles/${article._id}`,article,{type:'success',text:"successfully updated!!!"});
 	}catch(err){
 		respond(res, 'articles/edit',{
 			title:'Edit' +article.title,

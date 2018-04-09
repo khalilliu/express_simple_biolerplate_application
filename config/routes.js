@@ -9,7 +9,7 @@ const home = require('../app/controllers/home');
 const articles = require('../app/controllers/articles');
 const users = require('../app/controllers/users');
 const tags = require('../app/controllers/tags');
-
+const comments = require('../app/controllers/comments');
 
 const auth = require('./middlewares/authorization');
 
@@ -62,6 +62,11 @@ module.exports = function (app, passport) {
   app.put('/articles/:id', articleAuth, articles.update);
   app.delete('/articles/:id', articleAuth, articles.destroy);
 
+  //comments route
+  app.param('commentId',comments.load);
+  app.post('/articles/:id/comments',auth.requiresLogin, comments.create);
+  app.get('/articles/:id/comments',auth.requiresLogin, comments.create);
+  app.delete('/articles/:id/comments/:commentId', commentAuth, comments.destroy);
   //tags route
   app.get('/tags/:tag',tags.index);
   /**
